@@ -20,14 +20,14 @@ def limpar_acento(txt):
 
 pb_demo = r'C:\Users\pedro.bastos\Documents\vscode\streamlit\dados\Infopbruto.geojson'
 
+sic = pd.read_excel(r'C:\Users\pedro.bastos\Documents\vscode\streamlit\dados\SIC.xlsx')
 teatro = pd.read_excel(r'C:\Users\pedro.bastos\Documents\vscode\streamlit\dados\teatros.xlsx')
-sic_f = (r'C:\Users\pedro.bastos\Documents\vscode\streamlit\dados\Cadastrados.xlsx')
-sic_f
+cad_f = (r'C:\Users\pedro.bastos\Documents\vscode\streamlit\dados\Cadastrados.xlsx')
 
 
 @st.cache_data
-def load_sic_data(path_sic, recife):
-    df = pd.read_excel(path_sic)
+def load_sic_data(path_cad, recife):
+    df = pd.read_excel(path_cad)
     df['bairro'] = df['bairro'].apply(limpar_acento).str.upper()
     return df.query('bairro in @recife')
 
@@ -35,7 +35,7 @@ def load_sic_data(path_sic, recife):
 def load_pb_demo(path_demo):
     return gpd.read_file(path_demo,engine="pyogrio")
 
-df = load_sic_data(sic_f, recife)
+df = load_sic_data(cad_f, recife)
 dfb = load_pb_demo(pb_demo)
 
 #%% Construção da parte lateral do streamlit
