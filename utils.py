@@ -33,7 +33,6 @@ def colgate(df):
     df['ano'] = df['ano'].dt.year
     df = df.groupby(["Estilo","Bairro",'ano'],as_index=False)['valor'].sum().reset_index()
     df = df.sort_values(by='ano', ascending=False)
-    
     return df
 
 def limpar_acento(txt):

@@ -169,32 +169,80 @@ def display_mapa(df_area, dfb):
 # FICHA DA AREA DE ATUAÇÃ0
 ## Criando a função para obtenção dos dados SOBRE A AREA DE ATUAÇÃO (HEADER)
 def dict_area(df):
+    df = df.copy()
+    #Categorica
+    for col in ['genero', 'bairro', 'raca', 'escolaridade']:
+        if col in df.columns:
+            df[col] = df[col].fillna("Não informado")
+    
+    #Numérica
+    df['idade'] = pd.to_numeric(df['idade'], errors='coerce').dropna()
+                
     gb_cads = df.groupby(['area_atuacao']).agg(
-            inscritos = ('nome','size'),
-            genero_mv = ('genero', pd.Series.mode),
-            bairro_mv = ('bairro', pd.Series.mode),
-            idade_mv = ('idade', 'mean'),
-            raca_mv = ('raca',  pd.Series.mode),
-            escolaridade_mv = ('escolaridade',  pd.Series.mode)
-            ).reset_index()
+        inscritos=('nome', 'size'),
+        genero_mv=('genero', pd.Series.mode),
+        bairro_mv=('bairro', pd.Series.mode),
+        idade_mv=('idade', 'mean'),
+        raca_mv=('raca', pd.Series.mode),
+        escolaridade_mv=('escolaridade', pd.Series.mode)
+    ).reset_index()
     
-    nome = area_a
-    inscritos = gb_cads['inscritos'].sum()
-    genero_mv =  gb_cads['genero_mv'].iat[0]
-    idade_mv = gb_cads['idade_mv'].iat[0].round(2)
-    raca_mv =  gb_cads['raca_mv'].iat[0]
-    escolaridade_mv =  gb_cads['escolaridade_mv'].iat[0]
-    bairro_mv = gb_cads['bairro_mv'].iat[0]
-    
+    if area_a != "TODOS":
+        filtro = gb_cads[gb_cads['area_atuacao'] == area_a]
+        if filtro.empty:
+            return {
+                "NOME": area_a,
+                "INSCRITOS": 0,
+                "BAIRRO MAIS PRESENTE": 0,
+                "IDADE": 0,
+                "GÊNERO": 0,
+                "RAÇA": 0,
+                "ESCOLARIDADE": 0
+            }
+        else:
+            linha = filtro.iloc[0]
+    else:
+        linha = None
     dicionario = {
-        "NOME":nome,
-        "INSCRITOS": inscritos,
-        "BAIRRO MAIS PRESENTE":bairro_mv,
-        "IDADE":idade_mv,
-        "GÊNERO":genero_mv,
-        "RAÇA":raca_mv,
-        "ESCOLARIDADE":escolaridade_mv
+        "NOME": area_a,
+
+        "INSCRITOS": (
+            gb_cads['inscritos'].sum()
+            if area_a == "TODOS"
+            else int(linha['inscritos'])
+        ),
+
+        "BAIRRO MAIS PRESENTE": (
+            df['bairro'].mode().iloc[0]
+            if area_a == "TODOS"
+            else pd.Series(linha['bairro_mv']).iloc[0]
+        ),
+
+        "IDADE": (
+            round(df['idade'].mean(), 1)
+            if area_a == "TODOS"
+            else round(linha['idade_mv'], 1)
+        ),
+
+        "GÊNERO": (
+            df['genero'].mode().iloc[0]
+            if area_a == "TODOS"
+            else pd.Series(linha['genero_mv']).iloc[0]
+        ),
+
+        "RAÇA": (
+            df['raca'].mode().iloc[0]
+            if area_a == "TODOS"
+            else pd.Series(linha['raca_mv']).iloc[0]
+        ),
+
+        "ESCOLARIDADE": (
+            df['escolaridade'].mode().iloc[0]
+            if area_a == "TODOS"
+            else pd.Series(linha['escolaridade_mv']).iloc[0]
+        )
     }
+
 
     return dicionario
 
@@ -348,21 +396,9 @@ def graph_locais(df):
     # Organizando dados
     df = colgate(df)
 
-    # Definindo as cores
-    cores_itens = {
-    "2021": "#1f77b4",  # Azul
-    "2022": "#ff7f0e",  # Laranja
-    "2023": "#2ca02c",  # Verde
-    "2024": "#d62728",  # Vermelho
-    "2025": "#9467bd",  # Roxo
-    } 
-
     # Organizando plots
     fig = px.bar(df, x='ano', y='valor', 
-    hover_data=["ano","valor"],title=f"Top 10 locais de votação {area_a}",
-    )
-
-    # fig.update_traces(marker_color=[cores_itens[p] for p in df['ano']])
+    hover_data=["ano","valor"],title=f"Investimento da área no SIC ao longo do ano {area_a}")
 
     return fig
 
