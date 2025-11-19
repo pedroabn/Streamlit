@@ -4,7 +4,7 @@ import pandas as pd
 from typing import Dict, Union
 import geopandas as gpd
 import plotly.express as px
-from utils import recife, dic_sic_cad, colgate, limpar_acento
+from streamlit.utils.utils import recife, dic_sic_cad, colgate, limpar_acento
 from streamlit_folium import st_folium
 import folium
 from folium.plugins import MarkerCluster, HeatMap, MiniMap, GroupedLayerControl
