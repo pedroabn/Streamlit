@@ -93,28 +93,30 @@ st.markdown("### **Dados importantes sobre a Linguagem e Bairro**")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.metric(
-        label="% de inscritos no bairro",
-        value=dicionario2["PCT_inscritos_bairro"],
-        border=True,
-    )
-    st.metric(
-        label="Nº de Idosos e Crianças no bairro",
-        value=dicionario2["N_idosos_inf"],
-        border=True,
-    )
+    with st.container(border=True):
+        st.metric(
+            label="% de inscritos no bairro",
+            value=dicionario2["PCT_inscritos_bairro"],
+            border=True,
+        )
+        st.metric(
+            label="Nº de Idosos e Crianças no bairro",
+            value=dicionario2["N_idosos_inf"],
+            border=True,
+        )
 
 with col2:
-    st.metric(
-        label="Nº de espaços de convivência social",
-        value=dicionario2["N_espacos_social"],
-        border=True,
-    )
-    st.metric(
-        label="% de pessoas negras",
-        value=dicionario2["pct_negros"],
-        border=True,
-    )
+    with st.container(border=True):
+        st.metric(
+            label="Nº de espaços de convivência social",
+            value=dicionario2["N_espacos_social"],
+            border=True,
+        )
+        st.metric(
+            label="% de pessoas negras",
+            value=dicionario2["pct_negros"],
+            border=True,
+        )
 
 # --- Gráficos ---
 st.markdown("### :bar_chart: **Gráficos**")
