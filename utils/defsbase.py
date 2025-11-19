@@ -1,6 +1,6 @@
 import pandas as pd
 import unicodedata
-from dics import dic_sic_cad
+from utils.refs import dic_sic_cad
 
 def colgate(df):
     df = df.copy()  # segurança nível 1

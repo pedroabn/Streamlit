@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 from pathlib import Path
-from utils.dics import recife
+from utils.refs import recife
 from utils.defsbase import limpar_acento
 
 DATA_DIR = Path("dados")

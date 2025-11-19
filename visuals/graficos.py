@@ -2,8 +2,8 @@
 import pandas as pd
 import plotly.express as px
 
-from utils.text import limpar_acento
-from utils.mappings import dic_sic_cad
+from utils.defsbase import limpar_acento
+from utils.refs import dic_sic_cad
 
 def graph_cad(base: pd.DataFrame, area_a: str, bairro_select: str):
     df = base.copy()
