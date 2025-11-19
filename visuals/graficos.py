@@ -37,7 +37,7 @@ def graph_cad(base: pd.DataFrame, area_a: str, bairro_select: str):
         title=f"Top 5 bairros com mais cadastrados em {area_a}",
         labels={"bairros_cep": "Bairros", "cadastros": "Quantidade de cadastrados"},
     )
-    cores = ["#ffffff" if b != bairro_select else "#27b3d6" for b in dff["bairros_cep"]]
+    cores = ["#494cfd" if b != bairro_select else "#d62727" for b in dff["bairros_cep"]]
     fig.update_traces(marker_color=cores)
     return fig
 
@@ -79,7 +79,7 @@ def graph_cad_por_bairro(base: pd.DataFrame, area_a: str, bairro_select: str):
         .update_yaxes(type="category", categoryorder="category ascending")
     )
 
-    cores = ["#ffffff" if a != area_a else "#27b3d6" for a in dff["area_atuacao"]]
+    cores = ["#494cfd" if a != area_a else "#d62727" for a in dff["area_atuacao"]]
     fig.update_traces(marker_color=cores)
     return fig
 
@@ -102,7 +102,7 @@ def graf_scatter(df_bairros: pd.DataFrame, bairro_select: str):
         labels={},
     )
     cores = [
-        "#ffffff" if b != bairro_select else "#27b3d6"
+        "#494cfd" if b != bairro_select else "#d62727"
         for b in df["EBAIRRNOMEOF"]
     ]
     fig.update_traces(marker_color=cores)

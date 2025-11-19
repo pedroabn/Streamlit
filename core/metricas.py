@@ -84,9 +84,7 @@ def dict_area(df: pd.DataFrame, area_a: str) -> Dict[str, Union[str, int, float]
     }
 
 
-def dados_Area_bairro(
-    _df_filtrado: pd.DataFrame, _dfb_filtrado: pd.DataFrame
-) -> Dict[str, Union[str, int, float]]:
+def dados_Area_bairro(_df_filtrado: pd.DataFrame, _dfb_filtrado: pd.DataFrame) -> Dict[str, Union[str, int, float]]:
 
     try:
         total_no_bairro = _dfb_filtrado["inscritos"].sum()
