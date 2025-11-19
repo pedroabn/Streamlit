@@ -96,26 +96,22 @@ with col1:
     with st.container(border=True):
         st.metric(
             label="% de inscritos no bairro",
-            value=dicionario2["PCT_inscritos_bairro"],
-            border=True,
+            value=dicionario2["PCT_inscritos_bairro"]
         )
         st.metric(
             label="Nº de Idosos e Crianças no bairro",
             value=dicionario2["N_idosos_inf"],
-            border=True,
         )
 
 with col2:
     with st.container(border=True):
         st.metric(
             label="Nº de espaços de convivência social",
-            value=dicionario2["N_espacos_social"],
-            border=True,
+            value=dicionario2["N_espacos_social"]
         )
         st.metric(
             label="% de pessoas negras",
-            value=dicionario2["pct_negros"],
-            border=True,
+            value=dicionario2["pct_negros"]
         )
 
 # --- Gráficos ---
